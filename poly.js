@@ -91,10 +91,10 @@ const WA = {
 
         // Passo 4: Resultado Final
         const result = this.calculateClippedPolygon(sList, clip, subject);
-        steps.push({ msg: "4. Resultado: Polígono resultante do clipping (vermelho).", draw: () => {
-            PolyManager.drawShape(clip, "#2ecc71", false);
-            PolyManager.drawShape(subject, "#3498db", false);
-            PolyManager.drawShape(result, "#e74c3c", true);
+        steps.push({ msg: "4. Resultado: Polígono resultante do clipping (rosa).", draw: () => {
+            PolyManager.drawShape(clip, "#2ecc7155", false);
+            PolyManager.drawShape(subject, "#3498db55", false);
+            PolyManager.drawShape(result, "#eb579c", true);
         }});
 
         return steps;

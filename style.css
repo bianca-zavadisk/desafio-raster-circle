@@ -83,4 +83,4 @@ canvas { background: white; }
     display: flex; gap: 30px; margin-top: 15px; padding: 12px; 
     background: #111; border-radius: 6px; font-family: monospace; 
 }
-.stat b { color: #2ecc71; }
+.stat b { color: #ff0080; }

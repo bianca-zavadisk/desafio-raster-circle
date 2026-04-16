@@ -104,11 +104,11 @@ function render() {
 
     // Desenha passos anteriores
     for (let i = 0; i < currentStep; i++) {
-        drawPoints(steps[i].points, "#bdc3c7");
+        drawPoints(steps[i].points, "#f880c6");
     }
 
     // Desenha o passo atual
-    drawPoints(steps[currentStep].points, "#e74c3c");
+    drawPoints(steps[currentStep].points, "#d12173");
 }
 
 function drawPoints(points, color) {
@@ -130,7 +130,7 @@ function drawGrid() {
         ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
     }
     // Eixos Centrais (Plano Cartesiano)
-    ctx.strokeStyle = "#ff000044";
+    ctx.strokeStyle = "#b9065a44";
     ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(canvas.width/2, 0); ctx.lineTo(canvas.width/2, canvas.height); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(0, canvas.height/2); ctx.lineTo(canvas.width, canvas.height/2); ctx.stroke();
