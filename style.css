@@ -22,7 +22,7 @@ body {
 
 h2 { 
     margin-top: 0; 
-    color: #3498db; 
+    color: #eb579c; 
 }
 
 .controls { 
@@ -63,7 +63,7 @@ input[type="text"] {
 }
 
 button { 
-    background: #3498db; 
+    background: #eb579c; 
     color: white; 
     border: none; 
     padding: 8px 15px; 
@@ -73,7 +73,7 @@ button {
     transition: 0.2s;
 }
 
-button:hover { background: #2980b9; }
+button:hover { background: #d12173; }
 button:active { transform: translateY(1px); }
 
 .canvas-container { background: #444; padding: 2px; border-radius: 4px; display: flex; justify-content: center; overflow: hidden; }

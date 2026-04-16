@@ -14,7 +14,7 @@
                 <label>SVG Path:</label>
                 <div class="path-input">
                     <input type="text" id="svgPath" value="M 0 0 R 12">
-                    <button id="btnRun">Rasterizar</button>
+                    <button id="btnRun">Iniciar Rasterização</button>
                 </div>
             </div>
             
@@ -29,7 +29,7 @@
             
             <div class="input-section">
                 <label>Tamanho do Grid: <span id="gridSizeVal">20</span>px</label>
-                <input type="range" id="gridSize" min="10" max="40" value="20">
+                <input type="range" id="gridSize" min="5" max="50" value="20">
             </div>
         </div>
 
@@ -49,20 +49,20 @@
         <div class="controls">
             <div class="input-section">
                 <label>Polígono (Path SVG):</label>
-                <input type="text" id="polyPath" value="M -5 -5 L 15 -5 L 15 15 L -5 15 Z">
+                <input type="text" id="polyPath" value="M -5 -2 L 10 -5 L 20 2 L 10 13 L -2 10 L 1 5 Z">
             </div>
             <div class="input-section">
                 <label>Janela de Clipping (M x y L x y... Z):</label>
-                <input type="text" id="clipPath" value="M 10 10 L 20 10 L 20 20 L 10 20 Z">
+                <input type="text" id="clipPath" value="M -4 -3 L 18 -3 L 18 10 L -4 10 Z">
             </div>
             
             <div class="input-section full-width">
                 <button id="btnRenderPoly">1. Renderizar</button>
-                <button id="btnClip">2. Aplicar Clipping</button>
+                <button id="btnClip">2. Iniciar Clipping</button>
                 <div class="step-controls">
                     <button id="btnPrevPoly">←</button>
-                    <span id="polyStepDisplay">Passo: 0</span>
                     <button id="btnNextPoly">→</button>
+                    <span id="polyStepDisplay">Renderize o polígono.</span>
                 </div>
             </div>
         </div>
