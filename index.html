@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Rasterizador SVG - Midpoint Full</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Simulador de Rasterização: Arco</h2>
+        
+        <div class="controls">
+            <div class="input-section full-width">
+                <label>SVG Path:</label>
+                <div class="path-input">
+                    <input type="text" id="svgPath" value="M 0 0 R 12">
+                    <button id="btnRun">Rasterizar</button>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <label>Navegação de Passos:</label>
+                <div class="step-controls">
+                    <button id="btnPrev">←</button>
+                    <span id="stepDisplay">0 / 0</span>
+                    <button id="btnNext">→</button>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <label>Tamanho do Grid: <span id="gridSizeVal">20</span>px</label>
+                <input type="range" id="gridSize" min="10" max="40" value="20">
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="gridCanvas"></canvas>
+        </div>
+
+        <div id="debugInfo">
+            <div class="stat">Variavel de Decisão (d): <b id="valD">-</b></div>
+            <div class="stat">Ponto Ativo (x, y): <b id="valXY">-</b></div>
+        </div>
+    </div>
+
+    <div class="container poly">
+        <h2>Simulador de Clipping: Weiler-Atherton</h2>
+        
+        <div class="controls">
+            <div class="input-section">
+                <label>Polígono (Path SVG):</label>
+                <input type="text" id="polyPath" value="M -5 -5 L 15 -5 L 15 15 L -5 15 Z">
+            </div>
+            <div class="input-section">
+                <label>Janela de Clipping (M x y L x y... Z):</label>
+                <input type="text" id="clipPath" value="M 10 10 L 20 10 L 20 20 L 10 20 Z">
+            </div>
+            
+            <div class="input-section full-width">
+                <button id="btnRenderPoly">1. Renderizar</button>
+                <button id="btnClip">2. Aplicar Clipping</button>
+                <div class="step-controls">
+                    <button id="btnPrevPoly">←</button>
+                    <span id="polyStepDisplay">Passo: 0</span>
+                    <button id="btnNextPoly">→</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="gridCanvasPoly"></canvas>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="poly.js"></script>
+</body>
+</html>
