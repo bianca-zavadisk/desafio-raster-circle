@@ -100,22 +100,66 @@ const WA = {
         return steps;
     },
 
-    calculateClippedPolygon(sList, clip, subject) {
-        let points = sList.filter(p => p.isIntersection || this.isInside(p, clip));
-        const clipCornersInside = clip.filter(cp => this.isInside(cp, subject));
-        let combined = [...points, ...clipCornersInside];
+        calculateClippedPolygon(sList, clip, subject) {
+        // Substituímos a ordenação por centroide pelo Algoritmo de Sutherland-Hodgman.
+        // Ele "fatia" o polígono sujeito aresta por aresta do clip, preservando a ordem naturalmente.
+        
+        let outputList = subject;
 
-        // Centro médio dos pontos para ordenar por ângulo
-        if (combined.length > 0) {
-            const centerX = combined.reduce((sum, p) => sum + p.x, 0) / combined.length;
-            const centerY = combined.reduce((sum, p) => sum + p.y, 0) / combined.length;
-            
-            combined.sort((a, b) => {
-                return Math.atan2(a.y - centerY, a.x - centerX) - Math.atan2(b.y - centerY, b.x - centerX);
-            });
+        // 1. Determina a orientação geométrica da Janela de Clipping (Horário ou Anti-horário)
+        // Isso é essencial porque as coordenadas do Canvas têm o eixo Y invertido.
+        let clipArea = 0;
+        for (let i = 0; i < clip.length; i++) {
+            const j = (i + 1) % clip.length;
+            clipArea += (clip[i].x * clip[j].y) - (clip[j].x * clip[i].y);
+        }
+        const isClockwise = clipArea > 0;
+
+        // 2. Loop sobre cada aresta do polígono de Clipping
+        for (let i = 0; i < clip.length; i++) {
+            const c1 = clip[i];
+            const c2 = clip[(i + 1) % clip.length];
+            const inputList = outputList;
+            outputList = [];
+
+            if (inputList.length === 0) break; // Se o polígono sumiu, termina.
+
+            // Helper para saber se um ponto está do lado "de dentro" da aresta do clip
+            const isInsideEdge = (p) => {
+                const cross = (c2.x - c1.x) * (p.y - c1.y) - (c2.y - c1.y) * (p.x - c1.x);
+                return isClockwise ? cross >= 0 : cross <= 0;
+            };
+
+            // 3. Testa cada vértice do polígono Sujeito contra a aresta atual do Clip
+            for (let j = 0; j < inputList.length; j++) {
+                const s1 = inputList[(j - 1 + inputList.length) % inputList.length];
+                const s2 = inputList[j];
+
+                const s1Inside = isInsideEdge(s1);
+                const s2Inside = isInsideEdge(s2);
+
+                if (s2Inside) {
+                    if (!s1Inside) {
+                        // Entrou na área de clipping: calcula a interseção exata (Reta infinita vs Segmento)
+                        const den = (c2.y - c1.y) * (s2.x - s1.x) - (c2.x - c1.x) * (s2.y - s1.y);
+                        if (den !== 0) {
+                            const t = ((c2.x - c1.x) * (s1.y - c1.y) - (c2.y - c1.y) * (s1.x - c1.x)) / den;
+                            outputList.push({ x: s1.x + t * (s2.x - s1.x), y: s1.y + t * (s2.y - s1.y) });
+                        }
+                    }
+                    outputList.push(s2); // Adiciona o ponto que está dentro
+                } else if (s1Inside) {
+                    // Saiu da área de clipping: calcula a interseção da saída
+                    const den = (c2.y - c1.y) * (s2.x - s1.x) - (c2.x - c1.x) * (s2.y - s1.y);
+                    if (den !== 0) {
+                        const t = ((c2.x - c1.x) * (s1.y - c1.y) - (c2.y - c1.y) * (s1.x - c1.x)) / den;
+                        outputList.push({ x: s1.x + t * (s2.x - s1.x), y: s1.y + t * (s2.y - s1.y) });
+                    }
+                }
+            }
         }
 
-        return combined;
+        return outputList;
     }
 };
 
