@@ -20,10 +20,12 @@ body {
     margin: 2.5rem 0;
 }
 
-h2 { 
+h2, h3 { 
     margin-top: 0; 
     color: #eb579c; 
 }
+
+h3 {margin-bottom: 1.5rem;}
 
 .controls { 
     display: flex; 
